@@ -1,0 +1,36 @@
+
+version: '2'
+services:
+  postgres:
+    container_name: clair_postgres
+    image: arminc/clair-db:latest
+    environment:
+      POSTGRES_PASSWORD: password
+
+  clair:
+    container_name: clair_clair
+    image: hxquangnhat/clair:latest
+    depends_on:
+      - postgres
+    ports:
+      - "6060-6061:6060-6061"
+    links:
+      - postgres
+    volumes:
+      - /tmp:/tmp
+      - ./clair_config:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: [-config, /config/config.yaml]
+
+  clairctl:
+    image: jgsqware/clairctl:latest
+    restart: unless-stopped
+    user: root
+    group_add: [1]
+    environment:
+      - DOCKER_API_VERSION=1.24
+    volumes:
+      - ./docker-compose-data/clairctl-reports/:/reports/:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - clair

@@ -1,0 +1,14 @@
+---
+clair:
+  host: "127.0.0.1:6060"
+
+output:
+  format: json # "json", "table", "short-table" or quiet
+# ucomment if you want to use the rocketchat output feature
+#  rocketchat:
+#    webhook_url: rocket-chat.com/hooks/...
+#    receiver: "#general,@admin"
+
+fail_on:
+  score: 379
+  big_vulnerability: true

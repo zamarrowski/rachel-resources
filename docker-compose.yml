@@ -21,16 +21,3 @@ services:
       - ./clair_config:/config
       - /var/run/docker.sock:/var/run/docker.sock
     command: [-config, /config/config.yaml]
-
-  clairctl:
-    image: jgsqware/clairctl:latest
-    restart: unless-stopped
-    user: root
-    group_add: [1]
-    environment:
-      - DOCKER_API_VERSION=1.24
-    volumes:
-      - ./docker-compose-data/clairctl-reports/:/reports/:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    depends_on:
-      - clair

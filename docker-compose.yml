@@ -20,4 +20,4 @@ services:
       - /tmp:/tmp
       - ./clair_config:/config
       - /var/run/docker.sock:/var/run/docker.sock
-    command: [-config, /config/config.yaml]
+    command: [-config, /config/config.yaml, -insecure-tls, "true"]

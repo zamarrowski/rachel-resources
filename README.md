@@ -11,5 +11,5 @@ Rachel resources (Dockerfile, docker-compose, configs...)
 
 # Run yair (analyze images and return JSON)
 ```
-docker run -v `pwd`/config/:/opt/yair/config/:ro  yfoelling/yair nginx
+docker run -v `pwd`/yair/config/:/opt/yair/config/:ro  yfoelling/yair nginx
 ```
